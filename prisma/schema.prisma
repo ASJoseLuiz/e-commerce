@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id          Int       @id @default(autoincrement())
+  cpf         String    @unique 
+  email       String
+  password    String
+  name        String
+  addresses   Address[] // Relacionamento com Address
+  orders      Order[]   // Relacionamento com Order
+  cart        Cart?     // Relacionamento com Cart
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([cpf])
+}
+
+model Cart {
+  id          String    @id @default(uuid())
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int       @unique
+  products    Product[] @relation("CartProducts") // Relacionamento muitos-para-muitos com Product
+}
+
+model Product {
+  id          String    @id @default(uuid())
+  name        String
+  description String
+  price       Float
+  stock       Int
+  categories  Category[] @relation("ProductCategories") // Relacionamento muitos-para-muitos com Category
+  carts       Cart[]     @relation("CartProducts") // Relacionamento muitos-para-muitos com Cart
+}
+
+model Category {
+  id          String    @id @default(uuid())  
+  name        String
+  products    Product[] @relation("ProductCategories") // Relacionamento muitos-para-muitos com Product
+}
+
+model Order {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String
+  price       Float
+  status      Status
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  payment     Payment?
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int
+}
+
+model Address {
+  id          Int       @id @default(autoincrement())
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int
+  country     String
+  state       String
+  city        String
+  cep         String
+  number      Int
+  neighborhood String
+}
+
+enum Payment {
+  PAYPAL
+  PIX
+  BOLETO
+  CREDIT_CARD  
+}
+
+enum Status {
+  PENDING
+  PROCESSING 
+  ACCEPTED 
+  DENIED
+  CANCELED
+  DELIVERED
+  SHIPPING 
+}
+
+
