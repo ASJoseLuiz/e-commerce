@@ -1,7 +1,7 @@
-import { OrderType } from "../types/types";
+import { OrderType } from "../../types/types";
 
 export interface OrderService {
-  create(): Promise<Boolean>;
+  create(): Promise<OrderType>;
   update(): Promise<Boolean>;
   delete(): Promise<Boolean>;
   list(): Promise<OrderType[]>;

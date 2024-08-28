@@ -21,8 +21,6 @@ export class Order {
 
     public getUser(): UserType | undefined { return this.order.user }
 
-    public getCarts(): CartType[] | undefined { return this.order.carts }
-
     public update(fields: Partial<OrderType>) {
         Object.assign(this.order, fields)
     }

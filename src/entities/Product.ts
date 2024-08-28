@@ -1,4 +1,4 @@
-import { CartType, CategoryType, OrderType, ProductType } from "../types/types";
+import { CategoryType, OrderType, ProductType } from "../types/types";
 
 export class Product {
     private constructor(private readonly product: Partial<ProductType>) {}
