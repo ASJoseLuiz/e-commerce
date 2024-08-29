@@ -1,2 +1,2 @@
 # e-commerce
-#### Por enquanto, em desenvolvimento
+#### Por enquanto, em desenvolvimento.
