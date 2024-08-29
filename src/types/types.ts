@@ -29,7 +29,6 @@ export enum PaymentType {
 export type CategoryType = {
   id: string;
   name: string;
-  products: ProductType[];
 };
 
 export type OrderType = {
@@ -40,7 +39,7 @@ export type OrderType = {
   status: StatusType;
   payment: PaymentType;
   user: UserType;
-  carts: CartType[]
+  carts: CartType[];
 };
 
 export type CartType = {
@@ -55,8 +54,8 @@ export type ProductType = {
   description: string;
   price: number;
   stock: number;
-  orders: OrderType[]
-  category: CategoryType;
+  orders: OrderType[];
+  categories: CategoryType[];
 };
 
 export type UserType = {

@@ -1,31 +1,58 @@
 import { CategoryType, OrderType, ProductType } from "../types/types";
 
 export class Product {
-    private constructor(private readonly product: Partial<ProductType>) {}
+  private constructor(private readonly product: Partial<ProductType>) {}
 
-    public static create(product: Partial<ProductType>): Product {
-        return new Product(product)
-    }
+  public static create(product: Partial<ProductType>): Product {
+    return new Product(product);
+  }
 
-    public getId(): string | undefined { return this.product.id }
+  public static with(
+    id: string,
+    name: string,
+    description: string,
+    price: number,
+    stock: number,
+    categories: CategoryType[]
+  ) {
+    return new Product({ id, name, description, price, stock, categories });
+  }
 
-    public getName(): string | undefined { return this.product.name }
+  public getId(): string | undefined {
+    return this.product.id;
+  }
 
-    public getCategory(): CategoryType | undefined { return this.product.category }
+  public getName(): string | undefined {
+    return this.product.name;
+  }
 
-    public getPrice(): number | undefined { return this.product.price }
+  public getDescription(): string | undefined {
+    return this.product.description;
+  }
 
-    public getStock(): number | undefined { return this.product.stock }
+  public getCategories(): CategoryType[] | undefined {
+    return this.product.categories;
+  }
 
-    public getOrders(): OrderType[] | undefined { return this.product.orders }
-    
-    public updateStock(amount: number): void { // Valores positivos aumentam o estoque e negativos diminuem o estoque
-        const currentStock = this.getStock?.() ?? 0
-        this.update({stock: currentStock + amount})
-    }
+  public getPrice(): number | undefined {
+    return this.product.price;
+  }
 
-    public update(fields: Partial<ProductType>): void {
-        Object.assign(this.product, fields)
-    }
+  public getStock(): number | undefined {
+    return this.product.stock;
+  }
 
+  public getOrders(): OrderType[] | undefined {
+    return this.product.orders;
+  }
+
+  public updateStock(amount: number): void {
+    // Valores positivos aumentam o estoque e negativos diminuem o estoque
+    const currentStock = this.getStock?.() ?? 0;
+    this.update({ stock: currentStock + amount });
+  }
+
+  public update(fields: Partial<ProductType>): void {
+    Object.assign(this.product, fields);
+  }
 }

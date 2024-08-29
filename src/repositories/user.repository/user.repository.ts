@@ -1,4 +1,4 @@
-import { User } from "../entities/User";
+import { User } from "../../entities/User";
 
 export interface UserRepository {
   saveUser(user: User): Promise<Boolean>;
@@ -7,4 +7,3 @@ export interface UserRepository {
   listUsers(): Promise<User[]>;
   findUser(id: number): Promise<User>;
 }
-
